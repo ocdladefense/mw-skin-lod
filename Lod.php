@@ -94,7 +94,7 @@ class SkinLod extends SkinTemplate {
 		
 		$wgResourceModules,
 		
-		$wgAuthOcdla_ReplaceLogin;
+		$wgPersonalUrls_ReplaceLogin;
 		
 		$this->useHeadElemnt = $LodUseHeadElement;
 
@@ -174,7 +174,7 @@ class LodTemplate extends BaseTemplate {
 	public function execute() {
 
 		global $wgLang, $wgVectorUseIconWatch, $wgRequest, $wgUser,
-		$wgAuthOcdla_HostRedirect, $wgUseCustomContactForms,
+		$wgPersonalUrls_HostRedirect, $wgUseCustomContactForms,
 		
 		$wgOcdlaNamespace,
 		
@@ -190,20 +190,20 @@ class LodTemplate extends BaseTemplate {
 		 */
 
 		// These are set on line #17 in LocalSettings.php
-		$wgAuthOcdla_ReplaceLogin,
-		$wgAuthOcdla_ReplaceLogout, // This one is new.
-		$wgAuthOcdla_LogoutURL,
-		$wgAuthOcdla_LoginURL,
+		$wgPersonalUrls_ReplaceLogin,
+		$wgPersonalUrls_ReplaceLogout, // This one is new.
+		$wgPersonalUrls_LogoutURL,
+		$wgPersonalUrls_LoginURL,
 		
 		$wgOcdlaShowBooksOnlineDrawer;
 		
-		$requestServer = $wgAuthOcdla_HostRedirect;	
+		$requestServer = $wgPersonalUrls_HostRedirect;	
 		$requestUrl = $wgRequest->getRequestURL();			
 		$retURL = urlencode($requestServer.$requestUrl);
-		$fullUrl = "{$wgAuthOcdla_LoginURL}?retURL={$retURL}";
+		$fullUrl = "{$wgPersonalUrls_LoginURL}?retURL={$retURL}";
 	
-		$loginUrl = $wgAuthOcdla_ReplaceLogin ? $wgAuthOcdla_LoginURL : "/Special:UserLogin";
-		$logoutUrl = $wgAuthOcdla_ReplaceLogout ? "{$wgAuthOcdla_LogoutURL}?retURL={$retURL}" : "/Special:UserLogout";
+		$loginUrl = $wgPersonalUrls_ReplaceLogin ? $wgPersonalUrls_LoginURL : "/Special:UserLogin";
+		$logoutUrl = $wgPersonalUrls_ReplaceLogout ? "{$wgPersonalUrls_LogoutURL}?retURL={$retURL}" : "/Special:UserLogout";
 
 		$sessionAction = $wgUser->mId == 0 ? "<a href='{$loginUrl}'>Login</a>" : "<a href='{$logoutUrl}'>Logout</a>";
 
@@ -331,7 +331,7 @@ class LodTemplate extends BaseTemplate {
 				<img src="/images/book.png" style="margin:24px 5px" alt="A Book from the Library of Defense" />
 			</a>
 			<?php
-				if(!$wgAuthOcdla_ReplaceLogin) {
+				if(!$wgPersonalUrls_ReplaceLogin) {
 					$this->renderNavigation( 'PERSONAL' );
 				}
 			?>
