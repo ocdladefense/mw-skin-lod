@@ -259,7 +259,7 @@ class LodTemplate extends BaseTemplate {
 		<a href='<?php print $wgScriptPath; ?>/' class="masthead_link">&nbsp;</a>
 		<div class="ocdla_link header_link">
 			<a href="//www.ocdla.org" title="Go to the OCDLA homepage">
-				<img src="/skins/lod/images/ocdla_link.gif" alt="Go to the OCDLA website" />
+				<img src="<?php print $wgScriptPath; ?>/skins/lod/images/ocdla_link.gif" alt="Go to the OCDLA website" />
 			</a>
 			<br />
 			<a href="//www.ocdla.org" title="Go to the OCDLA homepage">OCDLA HOME</a>
@@ -270,7 +270,7 @@ class LodTemplate extends BaseTemplate {
 
     <div id="submast">
 	    <ul class="submastlinks">
-			<li><a href="<?php print $wgScriptPath; ?>/">Main Entrance</a></li>
+			<li><a href="<?php print $wgScriptPath; ?>/Main Entrance</a></li>
 			<li><a href="<?php print $wgScriptPath; ?>/Blog:Main">Blog</a></li>
 			<li><a href="<?php print $wgScriptPath; ?>/Blog:Case_Reviews">Case Reviews</a></li>
 			<li><a href="<?php print $wgScriptPath; ?>/Public:Subscriptions">OCDLA Books Online</a></li>
@@ -296,7 +296,7 @@ class LodTemplate extends BaseTemplate {
 		<!-- moved from below -->
 		<div id="mw-head" class="noprint">
 			<a id="lod-book" href="<?php print $wgScriptPath; ?>/">
-				<img src="/images/book.png" style="margin:24px 5px" alt="A Book from the Library of Defense" />
+				<img src="<?php print $wgScriptPath; ?>/images/book.png" style="margin:24px 5px" alt="A Book from the Library of Defense" />
 			</a>
 
 			<?php
@@ -430,7 +430,7 @@ class LodTemplate extends BaseTemplate {
 		<?php
 		/*<div id="mw-head" class="noprint">
 			<a href="/">
-				<img src="/images/book.png" style="margin:24px 5px" alt="A Book from the Library of Defense" />
+				<img src="<?php print $wgScriptPath; ?>/images/book.png" style="margin:24px 5px" alt="A Book from the Library of Defense" />
 			</a>
 			<?php $this->renderNavigation( 'PERSONAL' ); ?>
 			<div id="left-navigation">
