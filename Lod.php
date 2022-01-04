@@ -8,13 +8,8 @@
  * @ingroup Skins
  */
 
-if( !defined( 'MEDIAWIKI' ) ) {
-	die( -1 );
-}
+if(!defined('MEDIAWIKI')) die(-1);
 
-
-// Continued from above
-// Continued from above
 $wgValidSkinNames['lod'] = 'Lod';
 $wgExtensionMessagesFiles['Lod'] = __DIR__ . '/Lod/Lod.i18n.php';
 $wgAutoloadClasses['SkinLod'] = __DIR__ . '/Lod.php';
@@ -88,21 +83,16 @@ class SkinLod extends SkinTemplate {
 	 * @param $out OutputPage object to initialize
 	 */
 	public function initPage( OutputPage $out ) {
-		global $wgLocalStylePath, $wgRequest, $LodUseHeadElement,
-		
-		$wgOcdlaNamespace,
-		
-		$wgResourceModules,
-		
-		$wgPersonalUrls_ReplaceLogin;
-		
+
+		global $wgLocalStylePath, $wgRequest, $LodUseHeadElement, $wgOcdlaNamespace, $wgResourceModules;
+	
 		$this->useHeadElemnt = $LodUseHeadElement;
 
 		$title = $out->getContext()->getTitle();
 		
 		$ns = $title->mNamespace;
+
 		$wgOcdlaNamespace = $ns;
-		// print "<pre>".print_r($wgResourceModules,true)."</pre>";exit;
 
 		parent::initPage($out);
 		
@@ -147,9 +137,9 @@ class SkinLod extends SkinTemplate {
 	 // parent is includes/SkinTemplate.php
 	 // commented out 2013-03-16 to prevent legacy stylesheet's media queries from 
 	 // interfering with mobile CSS
-	function setupSkinUserCss( OutputPage $out )
-	{
-		parent::setupSkinUserCss( $out );
+	function setupSkinUserCss(OutputPage $out) {
+
+		parent::setupSkinUserCss($out);
 	}
 }
 
@@ -173,50 +163,34 @@ class LodTemplate extends BaseTemplate {
 	 */
 	public function execute() {
 
-		global $wgLang, $wgVectorUseIconWatch, $wgRequest, $wgUser,
-		$wgPersonalUrls_HostRedirect, $wgUseCustomContactForms,
+		global $wgLang, $wgVectorUseIconWatch, $wgRequest, $wgUser, $wgPersonalLinks_HostRedirect, $wgUseCustomContactForms;
+		global $wgOcdlaNamespace, $wgPersonalLinks_LogoutURL, $wgPersonalLinks_LoginURL, $wgOcdlaShowBooksOnlineDrawer, $wgScriptPath;
 		
-		$wgOcdlaNamespace,
-		
-		/**
-		 *
-		 * @var wgAuthOcdla_ReplaceLogin
-		 * 
-		 *
-		 * Boolean - controlled by the AuthOcdla extension; whether
-		 * to replace MediaWiki's default Personal Links with those generated
-		 * by the AuthOcdla extension.
-		 *
-		 */
-
-		// These are set on line #17 in LocalSettings.php
-		$wgPersonalUrls_ReplaceLogin,
-		$wgPersonalUrls_ReplaceLogout, // This one is new.
-		$wgPersonalUrls_LogoutURL,
-		$wgPersonalUrls_LoginURL,
-		
-		$wgOcdlaShowBooksOnlineDrawer;
-		
-		$requestServer = $wgPersonalUrls_HostRedirect;	
+		$requestServer = $wgPersonalLinks_HostRedirect;	
 		$requestUrl = $wgRequest->getRequestURL();			
 		$retURL = urlencode($requestServer.$requestUrl);
-		$fullUrl = "{$wgPersonalUrls_LoginURL}?retURL={$retURL}";
-	
-		$loginUrl = $wgPersonalUrls_ReplaceLogin ? $wgPersonalUrls_LoginURL : "/Special:UserLogin";
-		$logoutUrl = $wgPersonalUrls_ReplaceLogout ? "{$wgPersonalUrls_LogoutURL}?retURL={$retURL}" : "/Special:UserLogout";
+
+
+		$login = !empty($wgPersonalLinks_LoginURL) ? $wgPersonalLinks_LoginURL : "/Special:UserLogin";
+		$loginUrl = $wgScriptPath . "/index.php" . $login . '?retURL=' . urlencode($retURL);
+
+		$logout = !empty($wgPersonalLinks_LogoutURL) ? $wgPersonalLinks_LogoutURL : "/Special:UserLogout";
+		$logoutUrl = $wgScriptPath . "/index.php" . $logout . '?retURL=' . urlencode($retURL);
+
 
 		$sessionAction = $wgUser->mId == 0 ? "<a href='{$loginUrl}'>Login</a>" : "<a href='{$logoutUrl}'>Logout</a>";
 
 		$this->skin = $this->data['skin'];
-		
 		
 
 		// Build additional attributes for navigation urls
 		//$nav = $this->skin->buildNavigationUrls();
 		$nav = $this->data['content_navigation'];
 
-		if ( $wgVectorUseIconWatch ) {
+		if($wgVectorUseIconWatch) {
+
 			$mode = $this->skin->getTitle()->userIsWatching() ? 'unwatch' : 'watch';
+
 			if ( isset( $nav['actions'][$mode] ) ) {
 				$nav['views'][$mode] = $nav['actions'][$mode];
 				$nav['views'][$mode]['class'] = rtrim( 'icon ' . $nav['views'][$mode]['class'], ' ' );
@@ -226,26 +200,32 @@ class LodTemplate extends BaseTemplate {
 		}
 
 		$xmlID = '';
-		foreach ( $nav as $section => $links ) {
-			foreach ( $links as $key => $link ) {
-				if ( $section == 'views' && !( isset( $link['primary'] ) && $link['primary'] ) ) {
-					$link['class'] = rtrim( 'collapsible ' . $link['class'], ' ' );
+		foreach($nav as $section => $links) {
+
+			foreach($links as $key => $link) {
+
+				if($section == 'views' && !(isset($link['primary']) && $link['primary'])) {
+
+					$link['class'] = rtrim('collapsible ' . $link['class'], ' ');
 				}
 
 				$xmlID = isset( $link['id'] ) ? $link['id'] : 'ca-' . $xmlID;
-				$nav[$section][$key]['attributes'] =
-					' id="' . Sanitizer::escapeId( $xmlID ) . '"';
-				if ( $link['class'] ) {
-					$nav[$section][$key]['attributes'] .=
-						' class="' . htmlspecialchars( $link['class'] ) . '"';
-					unset( $nav[$section][$key]['class'] );
+
+				$nav[$section][$key]['attributes'] = ' id="' . Sanitizer::escapeId($xmlID) . '"';
+
+				if($link['class']) {
+
+					$nav[$section][$key]['attributes'] .= ' class="' . htmlspecialchars($link['class']) . '"';
+					unset($nav[$section][$key]['class']);
 				}
-				if ( isset( $link['tooltiponly'] ) && $link['tooltiponly'] ) {
-					$nav[$section][$key]['key'] =
-						Linker::tooltip( $xmlID );
+
+				if(isset($link['tooltiponly']) && $link['tooltiponly']) {
+
+					$nav[$section][$key]['key'] = Linker::tooltip($xmlID);
+
 				} else {
-					$nav[$section][$key]['key'] =
-						Xml::expandAttributes( Linker::tooltipAndAccesskeyAttribs( $xmlID ) );
+
+					$nav[$section][$key]['key'] = Xml::expandAttributes(Linker::tooltipAndAccesskeyAttribs($xmlID));
 				}
 			}
 		}
@@ -255,105 +235,97 @@ class LodTemplate extends BaseTemplate {
 		$this->data['variant_urls'] = $nav['variants'];
 
 		// Reverse horizontally rendered navigation elements
-		if ( $wgLang->isRTL() ) {
-			$this->data['view_urls'] =
-				array_reverse( $this->data['view_urls'] );
-			$this->data['namespace_urls'] =
-				array_reverse( $this->data['namespace_urls'] );
-			$this->data['personal_urls'] =
-				array_reverse( $this->data['personal_urls'] );
+		if($wgLang->isRTL()) {
+			$this->data['view_urls'] = array_reverse($this->data['view_urls']);
+			$this->data['namespace_urls'] = array_reverse($this->data['namespace_urls']);
+			$this->data['personal_urls'] = array_reverse($this->data['personal_urls']);
 		}
+
 		// Output HTML Page
-		$this->html( 'headelement' );
+		$this->html('headelement');
 	
 
-		if(!empty($this->skin->customElements['fixedNav'])) {
-			print $this->skin->customElements['fixedNav'];
-		}
+		if(!empty($this->skin->customElements['fixedNav'])) print $this->skin->customElements['fixedNav'];
 
-		if($wgOcdlaShowBooksOnlineDrawer) {
-			if(!empty($this->skin->customElements['drawer'])) {
-				print $this->skin->customElements['drawer'];
-			}
+		if($wgOcdlaShowBooksOnlineDrawer && !empty($this->skin->customElements['drawer'])) {
+			
+			print $this->skin->customElements['drawer'];
 		}
 	?>
 	
 	
     <div id="wrapper">
     <div id="masthead">
-			<a href='/' class="masthead_link">&nbsp;</a>
-			<div class="ocdla_link header_link">
-				<a href="//www.ocdla.org" title="Go to the OCDLA homepage">
-					<img src="/skins/lod/images/ocdla_link.gif" alt="Go to the OCDLA website" />
-				</a>
-				<br />
-				<a href="//www.ocdla.org" title="Go to the OCDLA homepage">OCDLA HOME</a>
-			</div>
-			<!--<div class="getinvolved_link header_link">
-				<a href="/Get_Involved" title="Get Involved">
-					<img src="/skins/lod/images/get_involved.gif" alt="Get Inolved with the Library of Defense" />
-				</a>
-				<br />
-				<a href="/Get_Involved" title="Get Involved">GET INVOLVED</a>
-			</div>-->
-			<div class="masthead_filler">&nbsp;</div>
+		<a href='<?php print $wgScriptPath; ?>/' class="masthead_link">&nbsp;</a>
+		<div class="ocdla_link header_link">
+			<a href="//www.ocdla.org" title="Go to the OCDLA homepage">
+				<img src="/skins/lod/images/ocdla_link.gif" alt="Go to the OCDLA website" />
+			</a>
+			<br />
+			<a href="//www.ocdla.org" title="Go to the OCDLA homepage">OCDLA HOME</a>
+		</div>
+
+		<div class="masthead_filler">&nbsp;</div>
     </div>
+
     <div id="submast">
 	    <ul class="submastlinks">
-	      <li><a href="/">Main Entrance</a></li>
-	  		<li><a href="/Blog:Main">Blog</a></li>
-	  		<li><a href="/Blog:Case_Reviews">Case Reviews</a></li>
-	  		<li><a href="/Public:Subscriptions">OCDLA Books Online</a></li>
-	  		<li><a href="/Resources">Resources</a></li>
-	  		<li><a href="/User:Ryan">Ryan Scott</a></li>
-				<li><a href="/Get_Involved" title="Get Involved">Get Involved</a></li>
-	  		<li><a href="/How_To_Edit">Edit This Site!</a></li>
-	  		<?php if($wgUseCustomContactForms): ?>
-					<li><a href="/Special:Contact_Form?type=suggest">Make a Suggestion</a></li>
-					<li><a href="/Special:Contact_Form?type=issue">Report a Problem</a></li>
-	  		<?php endif; ?>
+			<li><a href="<?php print $wgScriptPath; ?>/">Main Entrance</a></li>
+			<li><a href="<?php print $wgScriptPath; ?>/Blog:Main">Blog</a></li>
+			<li><a href="<?php print $wgScriptPath; ?>/Blog:Case_Reviews">Case Reviews</a></li>
+			<li><a href="<?php print $wgScriptPath; ?>/Public:Subscriptions">OCDLA Books Online</a></li>
+			<li><a href="<?php print $wgScriptPath; ?>/Resources">Resources</a></li>
+			<li><a href="<?php print $wgScriptPath; ?>/User:Ryan">Ryan Scott</a></li>
+			<li><a href="<?php print $wgScriptPath; ?>/Get_Involved" title="Get Involved">Get Involved</a></li>
+			<li><a href="<?php print $wgScriptPath; ?>/How_To_Edit">Edit This Site!</a></li>
 
-	  			<!--<li><a href="/Special:UserLogin&returnto=Welcome_to_The_Library">Log In</a></li>
-	  			-->
-	  			<li id="header-login">
-						<?php print $sessionAction; ?>
-	  			</li>
+			<?php if($wgUseCustomContactForms): ?>
+				<li><a href="<?php print $wgScriptPath; ?>/Special:Contact_Form?type=suggest">Make a Suggestion</a></li>
+				<li><a href="<?php print $wgScriptPath; ?>/Special:Contact_Form?type=issue">Report a Problem</a></li>
+			<?php endif; ?>
 
-	  	</ul>
+			<li id="header-login"><?php print $sessionAction; ?></li>
+		</ul>
   	</div>
+
     <div id="wiki-wrapper">
 		<div id="mw-page-base" class="noprint"></div>
 		<div id="mw-head-base" class="noprint"></div>
+
 		<!-- header -->
 		<!-- moved from below -->
 		<div id="mw-head" class="noprint">
-			<a id="lod-book" href="/">
+			<a id="lod-book" href="<?php print $wgScriptPath; ?>/">
 				<img src="/images/book.png" style="margin:24px 5px" alt="A Book from the Library of Defense" />
 			</a>
+
 			<?php
-				if(!$wgPersonalUrls_ReplaceLogin) {
-					$this->renderNavigation( 'PERSONAL' );
-				}
+				// Hiding the "ocdla login" link from the bottom-right below the primary nav.
+				if($wgHideExtraLoginLink) $this->renderNavigation( 'PERSONAL' );
 			?>
+
 			<div id="left-navigation">
 				<?php $this->renderNavigation( array( 'NAMESPACES', 'VARIANTS', 'SEARCH' ) ); ?>
 			</div>
+
 			<div id="right-navigation">
 				<?php $this->renderNavigation( array( 'VIEWS', 'ACTIONS') ); ?>
 			</div>
 		</div>
 		<!-- /header -->
-		<!-- panel -->
 
-			<div id="mw-panel" class="noprint">
+
+		<!-- panel -->
+		<div id="mw-panel" class="noprint">
 			<h3 class="mw-customtoggle-sections">
 				Library Collections
 			</h3>
 			<div id="mw-customcollapsible-sections" class="noprint mw-collapsible">
 				<?php $this->renderPortals( $this->data['sidebar'] ); ?>
 			</div>
-			</div>
+		</div>
 		<!-- /panel -->
+
 		<!-- content -->
 		<div id="content">
 			<a id="top"></a>
@@ -385,7 +357,6 @@ class LodTemplate extends BaseTemplate {
 					$ns = count($parts) > 1 ? $parts[0] : null;
 					$title_print = null == $ns ? $parts[0] : $parts[1];
 				 	print $title_print;
-					// $this->html( 'title' );
 				?>
 			</h1>
 			
@@ -523,16 +494,14 @@ class LodTemplate extends BaseTemplate {
 	 * @param $portals array
 	 */
 	private function renderPortals( $portals ) {
+
 		// Force the rendering of the following portals
-		if ( !isset( $portals['SEARCH'] ) ) {
-			$portals['SEARCH'] = true;
-		}
-		if ( !isset( $portals['TOOLBOX'] ) ) {
-			$portals['TOOLBOX'] = true;
-		}
-		if ( !isset( $portals['LANGUAGES'] ) ) {
-			$portals['LANGUAGES'] = true;
-		}
+		if(!isset($portals['SEARCH'])) $portals['SEARCH'] = true;
+
+		if(!isset($portals['TOOLBOX'])) $portals['TOOLBOX'] = true;
+
+		if(!isset($portals['LANGUAGES'])) $portals['LANGUAGES'] = true;
+
 		// Render portals
 		foreach ( $portals as $name => $content ) {
 			if ( $content === false )

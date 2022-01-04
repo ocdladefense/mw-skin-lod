@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 
 	 					
 $logoutUrl = "https://auth.ocdla.org/logout?ref={$requestUrl}&server=".
-$wgPersonalUrls_HostRedirect;
+$wgPersonalLinks_HostRedirect;
 
 $data = array(
 	'logged_in' => true,
