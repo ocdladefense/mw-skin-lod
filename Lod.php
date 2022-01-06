@@ -178,7 +178,6 @@ class LodTemplate extends BaseTemplate {
 		$logoutUrl = $wgScriptPath . $logout;
 
 
-		$sessionAction = $wgUser->mId == 0 ? "<a href='{$loginUrl}'>Login</a>" : "<a href='{$logoutUrl}'>Logout</a>";
 
 		$this->skin = $this->data['skin'];
 		
@@ -284,7 +283,7 @@ class LodTemplate extends BaseTemplate {
 				<li><a href="<?php print $wgScriptPath; ?>/Special:Contact_Form?type=issue">Report a Problem</a></li>
 			<?php endif; ?>
 
-			<li id="header-login"><?php print $sessionAction; ?></li>
+			<li id="header-login"><?php print $wgUser->mId == 0 ? "<a href='{$loginUrl}'>Login</a>" : "<a href='{$logoutUrl}'>Logout</a>"; ?></li>
 		</ul>
   	</div>
 
