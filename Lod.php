@@ -57,8 +57,8 @@ $wgResourceModules['skins.lod.js'] = array(
 	//	'jquery.ui.dialog',
 	//),
 	'position' => 'top',
-	'remoteBasePath' => '/skins',
-	'localBasePath' => '/skins'
+	'remoteBasePath' => 'skins',
+	'localBasePath' => 'skins'
 );
 // Continued from above
 
@@ -84,7 +84,7 @@ class SkinLod extends SkinTemplate {
 	 */
 	public function initPage( OutputPage $out ) {
 
-		global $wgLocalStylePath, $wgRequest, $LodUseHeadElement, $wgOcdlaNamespace, $wgResourceModules;
+		global $wgLocalStylePath, $wgRequest, $LodUseHeadElement, $wgOcdlaNamespace, $wgResourceModules, $wgScriptPath;
 	
 		$this->useHeadElemnt = $LodUseHeadElement;
 
@@ -125,8 +125,8 @@ class SkinLod extends SkinTemplate {
 
 
 
-		$out->addScriptFile('/resources/jquery/jquery.makeCollapsible.js');
-		$out->addStyle('/skins/lod/IE90Fixes.css?v=0.5', 'all','lt IE 9');
+		$out->addScriptFile("$wgScriptPath/resources/jquery/jquery.makeCollapsible.js");
+		$out->addStyle("$wgScriptPath/skins/lod/IE90Fixes.css?v=0.5", "all","lt IE 9");
 	}
 
 	/**
@@ -172,10 +172,10 @@ class LodTemplate extends BaseTemplate {
 
 
 		$login = !empty($wgPersonalLinks_LoginURL) ? $wgPersonalLinks_LoginURL : "/Special:UserLogin";
-		$loginUrl = $wgScriptPath . "/index.php" . $login . '?retURL=' . urlencode($retURL);
+		$loginUrl = $wgScriptPath . $login . '?retURL=' . urlencode($retURL);
 
 		$logout = !empty($wgPersonalLinks_LogoutURL) ? $wgPersonalLinks_LogoutURL : "/Special:UserLogout";
-		$logoutUrl = $wgScriptPath . "/index.php" . $logout . '?retURL=' . urlencode($retURL);
+		$logoutUrl = $wgScriptPath . $logout . '?retURL=' . urlencode($retURL);
 
 
 		$sessionAction = $wgUser->mId == 0 ? "<a href='{$loginUrl}'>Login</a>" : "<a href='{$logoutUrl}'>Logout</a>";
@@ -270,7 +270,7 @@ class LodTemplate extends BaseTemplate {
 
     <div id="submast">
 	    <ul class="submastlinks">
-			<li><a href="<?php print $wgScriptPath; ?>/Main Entrance</a></li>
+			<li><a href="<?php print $wgScriptPath; ?>">Main Entrance</a></li>
 			<li><a href="<?php print $wgScriptPath; ?>/Blog:Main">Blog</a></li>
 			<li><a href="<?php print $wgScriptPath; ?>/Blog:Case_Reviews">Case Reviews</a></li>
 			<li><a href="<?php print $wgScriptPath; ?>/Public:Subscriptions">OCDLA Books Online</a></li>
