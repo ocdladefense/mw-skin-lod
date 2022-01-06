@@ -172,10 +172,10 @@ class LodTemplate extends BaseTemplate {
 
 
 		$login = !empty($wgPersonalLinks_LoginURL) ? $wgPersonalLinks_LoginURL : "/Special:UserLogin";
-		$loginUrl = $wgScriptPath . $login . '?retURL=' . urlencode($retURL);
+		$loginUrl = $wgScriptPath . $login;
 
 		$logout = !empty($wgPersonalLinks_LogoutURL) ? $wgPersonalLinks_LogoutURL : "/Special:UserLogout";
-		$logoutUrl = $wgScriptPath . $logout . '?retURL=' . urlencode($retURL);
+		$logoutUrl = $wgScriptPath . $logout;
 
 
 		$sessionAction = $wgUser->mId == 0 ? "<a href='{$loginUrl}'>Login</a>" : "<a href='{$logoutUrl}'>Logout</a>";
