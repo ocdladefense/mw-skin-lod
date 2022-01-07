@@ -60,7 +60,7 @@ $wgResourceModules['skins.lod.js'] = array(
 	//	'jquery.ui.dialog',
 	//),
 	'position' => 'top',
-	'remoteBasePath' => 'skins',
+	'remoteBasePath' => '/skins',
 	'localBasePath' => 'skins'
 );
 // Continued from above
