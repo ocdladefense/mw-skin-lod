@@ -137,7 +137,7 @@ class LodTemplate extends BaseTemplate {
 	    <ul class="submastlinks">
 			<li><a href="<?php print $wgScriptPath; ?>/">Main Entrance</a></li>
 			<li><a href="<?php print $wgScriptPath; ?>/Blog:Main">Blog</a></li>
-			<li><a href="<?php print $wgScriptPath; ?>/Blog:Case_Reviews">Case Reviews</a></li>
+			<li><a href="<?php print $wgScriptPath; ?>/Special:CaseReviews">Case Reviews</a></li>
 			<li><a href="<?php print $wgScriptPath; ?>/Public:Subscriptions">OCDLA Books Online</a></li>
 			<li><a href="<?php print $wgScriptPath; ?>/Resources">Resources</a></li>
 			<li><a href="<?php print $wgScriptPath; ?>/User:Ryan">Ryan Scott</a></li>
