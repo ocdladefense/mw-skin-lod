@@ -109,7 +109,9 @@ class LodTemplate extends BaseTemplate {
 		// Output HTML Page
 		$this->html('headelement');
 	
-
+		// var_dump($this->data['headelement']);
+		// exit;
+		
 		if(!empty($this->skin->customElements['fixedNav'])) print $this->skin->customElements['fixedNav'];
 
 		if($wgOcdlaShowBooksOnlineDrawer && !empty($this->skin->customElements['drawer'])) {
