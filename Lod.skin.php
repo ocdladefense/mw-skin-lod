@@ -33,7 +33,7 @@ $wgResourceModules['skins.ocdla'] = array(
 	'position' => 'top'
 );
 */
-  
+    
 $wgResourceModules['skins.lod'] = array(
 	// Keep in sync with WebInstallerOutput::getCSS()
 	'styles' => array(

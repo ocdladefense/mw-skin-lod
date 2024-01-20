@@ -20,6 +20,8 @@ class SkinLod extends SkinTemplate {
 	var $skinname = 'lod',
 	$stylename = 'lod',
 	$template = 'LodTemplate';
+
+	
 	public $useHeadElement = true;
 
 	/**
@@ -41,37 +43,23 @@ class SkinLod extends SkinTemplate {
 		parent::initPage($out);
 		
 
-
-		// Append CSS which includes IE only behavior fixes for hover support -
-		// this is better than including this in a CSS fille since it doesn't
-		// wait for the CSS file to load before fetching the HTC file.
-		$min = $wgRequest->getFuzzyBool( 'debug' ) ? '' : '.min';
-		$out->addHeadItem( 'csshover',
-			'<!--[if lt IE 7]><style type="text/css">body{behavior:url("' .
-				htmlspecialchars( $wgLocalStylePath ) .
-				"/{$this->stylename}/csshover{$min}.htc\")}</style><![endif]-->"
-		);
-		$out->addMeta('viewport','width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no');
-		$out->addMeta( 'http:X-UA-Compatible', 'IE=Edge' );
-		$out->addMeta( 'google-site-verification', 'kfWoAoyjWc_N_L4eZ5qgSWmUMFGq8cz_zM_0XB-JAnA' );
-		
-		$out->addLink(array("href"=>"https://fonts.googleapis.com/css?family=Alegreya+Sans|Open+Sans|Open+Sans:600","rel"=>"stylesheet"));
-		// <meta name="google-site-verification" content="kfWoAoyjWc_N_L4eZ5qgSWmUMFGq8cz_zM_0XB-JAnA" />
-
 		/**
 		 * http://www.mediawiki.org/wiki/Manual:$wgRequest
 		 */
 		// $request = $out->getRequest();
 		// $Resource_Loader = $out->getResourceLoader();
-		
+		// Append CSS which includes IE only behavior fixes for hover support -
+		// this is better than including this in a CSS fille since it doesn't
+		// wait for the CSS file to load before fetching the HTC file.
+		$out->addMeta('viewport','width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no');
+		$out->addMeta( 'http:X-UA-Compatible', 'IE=Edge' );
+		$out->addMeta( 'google-site-verification', 'kfWoAoyjWc_N_L4eZ5qgSWmUMFGq8cz_zM_0XB-JAnA' );
+		$out->addLink(array("href"=>"https://fonts.googleapis.com/css?family=Alegreya+Sans|Open+Sans|Open+Sans:600","rel"=>"stylesheet"));
 		$out->addModuleStyles('skins.lod');
 		$out->addModules('skins.lod.js');
-
-
-
 		$out->addScriptFile("$wgScriptPath/resources/jquery/jquery.makeCollapsible.js");
-		$out->addStyle("$wgScriptPath/skins/lod/IE90Fixes.css?v=0.5", "all","lt IE 9");
 	}
+
 
 	/**
 	 * Load skin and user CSS files in the correct order
