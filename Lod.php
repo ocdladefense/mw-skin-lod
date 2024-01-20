@@ -21,7 +21,7 @@ class SkinLod extends SkinTemplate {
 	$stylename = 'lod',
 	$template = 'LodTemplate';
 
-	
+
 	public $useHeadElement = true;
 
 	/**
@@ -52,8 +52,8 @@ class SkinLod extends SkinTemplate {
 		// this is better than including this in a CSS fille since it doesn't
 		// wait for the CSS file to load before fetching the HTC file.
 		$out->addMeta('viewport','width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no');
-		$out->addMeta( 'http:X-UA-Compatible', 'IE=Edge' );
-		$out->addMeta( 'google-site-verification', 'kfWoAoyjWc_N_L4eZ5qgSWmUMFGq8cz_zM_0XB-JAnA' );
+		$out->addMeta('http:X-UA-Compatible', 'IE=Edge');
+		$out->addMeta('google-site-verification', $wgGoogleSiteVerification);
 		$out->addLink(array("href"=>"https://fonts.googleapis.com/css?family=Alegreya+Sans|Open+Sans|Open+Sans:600","rel"=>"stylesheet"));
 		$out->addModuleStyles('skins.lod');
 		$out->addModules('skins.lod.js');
